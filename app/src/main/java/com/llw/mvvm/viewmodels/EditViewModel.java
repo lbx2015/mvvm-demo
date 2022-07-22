@@ -1,27 +1,29 @@
 package com.llw.mvvm.viewmodels;
 
-import androidx.hilt.lifecycle.ViewModelInject;
 import androidx.lifecycle.LiveData;
 
 import com.llw.mvvm.db.bean.Notebook;
 import com.llw.mvvm.repository.NotebookRepository;
-import com.llw.mvvm.repository.UserRepository;
 
-import java.util.List;
+import javax.inject.Inject;
+
+import dagger.hilt.android.lifecycle.HiltViewModel;
 
 /**
  * EditViewModel
+ *
  * @author llw
  * {@link com.llw.mvvm.ui.activity.EditActivity}
  */
+@HiltViewModel
 public class EditViewModel extends BaseViewModel {
 
     private final NotebookRepository notebookRepository;
 
     public LiveData<Notebook> notebook;
 
-    @ViewModelInject
-    EditViewModel(NotebookRepository notebookRepository){
+    @Inject
+    EditViewModel(NotebookRepository notebookRepository) {
         this.notebookRepository = notebookRepository;
     }
 

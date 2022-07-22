@@ -1,24 +1,28 @@
 package com.llw.mvvm.viewmodels;
 
-import androidx.hilt.lifecycle.ViewModelInject;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.ViewModel;
 
 import com.llw.mvvm.model.NewsResponse;
 import com.llw.mvvm.repository.NewsRepository;
 
+import javax.inject.Inject;
+
+import dagger.hilt.android.lifecycle.HiltViewModel;
+
 /**
  * NewsFragment数据提供
+ *
  * @author llw
  * {@link com.llw.mvvm.ui.fragment.NewsFragment}
  */
+@HiltViewModel
 public class NewsViewModel extends BaseViewModel {
 
     public LiveData<NewsResponse> news;
 
     private final NewsRepository newsRepository;
 
-    @ViewModelInject
+    @Inject
     public NewsViewModel(NewsRepository newsRepository) {
         this.newsRepository = newsRepository;
     }

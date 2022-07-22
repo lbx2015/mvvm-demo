@@ -1,7 +1,6 @@
 package com.llw.mvvm.repository;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
@@ -9,27 +8,20 @@ import androidx.lifecycle.MutableLiveData;
 import com.llw.mvvm.BaseApplication;
 import com.llw.mvvm.api.ApiService;
 import com.llw.mvvm.db.bean.News;
-import com.llw.mvvm.db.bean.WallPaper;
 import com.llw.mvvm.model.NewsResponse;
-import com.llw.mvvm.model.WallPaperResponse;
 import com.llw.mvvm.network.BaseObserver;
 import com.llw.mvvm.network.NetworkApi;
 import com.llw.mvvm.network.utils.DateUtil;
-import com.llw.mvvm.network.utils.KLog;
 import com.llw.mvvm.utils.Constant;
 import com.llw.mvvm.utils.MVUtils;
-import com.llw.mvvm.utils.MVUtilsEntryPoint;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
-import dagger.hilt.android.EntryPointAccessors;
 import io.reactivex.Completable;
 import io.reactivex.Flowable;
-
-import static com.llw.mvvm.BaseApplication.getContext;
 
 /**
  * 对新闻数据进行处理
@@ -44,14 +36,15 @@ public class NewsRepository {
     final MutableLiveData<NewsResponse> news = new MutableLiveData<>();
 
     public final MutableLiveData<String> failed = new MutableLiveData<>();
-    private final MVUtils mvUtils;
+    @Inject
+ MVUtils mvUtils;
 
     @Inject
     NewsRepository() {
         //获取mvUtils
-        MVUtilsEntryPoint entryPoint =
-                EntryPointAccessors.fromApplication(getContext(), MVUtilsEntryPoint.class);
-        mvUtils = entryPoint.getMVUtils();
+//        MVUtilsEntryPoint entryPoint =
+//                EntryPointAccessors.fromApplication(getContext(), MVUtilsEntryPoint.class);
+//        mvUtils = entryPoint.getMVUtils();
     }
 
     /**

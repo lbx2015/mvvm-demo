@@ -1,15 +1,15 @@
 package com.llw.mvvm.viewmodels;
 
-import androidx.hilt.lifecycle.ViewModelInject;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.ViewModel;
 
-import com.llw.mvvm.db.bean.User;
 import com.llw.mvvm.model.BiYingResponse;
 import com.llw.mvvm.model.WallPaperResponse;
 import com.llw.mvvm.repository.MainRepository;
-import com.llw.mvvm.repository.UserRepository;
 import com.llw.mvvm.ui.activity.MainActivity;
+
+import javax.inject.Inject;
+
+import dagger.hilt.android.lifecycle.HiltViewModel;
 
 
 /**
@@ -18,15 +18,14 @@ import com.llw.mvvm.ui.activity.MainActivity;
  * @author llw
  * {@link MainActivity}
  */
+@HiltViewModel
 public class MainViewModel extends BaseViewModel {
 
+    private final MainRepository mainRepository;
     public LiveData<BiYingResponse> biying;
-
     public LiveData<WallPaperResponse> wallPaper;
 
-    private final MainRepository mainRepository;
-
-    @ViewModelInject
+    @Inject
     MainViewModel(MainRepository mainRepository) {
         this.mainRepository = mainRepository;
     }

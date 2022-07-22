@@ -13,8 +13,8 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import dagger.hilt.InstallIn;
-import dagger.hilt.android.components.ApplicationComponent;
 import dagger.hilt.android.qualifiers.ApplicationContext;
+import dagger.hilt.components.SingletonComponent;
 
 /**
  * MMKV Utils
@@ -23,7 +23,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext;
  * @description MVUtils
  */
 @Module
-@InstallIn(ApplicationComponent.class)
+@InstallIn(SingletonComponent.class)
 public class MVUtils {
 
     private static MMKV mmkv;
@@ -127,7 +127,7 @@ public class MVUtils {
     }
 
     public Set<String> getStringSet(String key) {
-        return mmkv.decodeStringSet(key, Collections.<String>emptySet());
+        return mmkv.decodeStringSet(key, Collections.emptySet());
     }
 
     public Parcelable getParcelable(String key) {

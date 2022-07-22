@@ -14,18 +14,14 @@ import com.llw.mvvm.network.NetworkApi;
 import com.llw.mvvm.network.utils.DateUtil;
 import com.llw.mvvm.utils.Constant;
 import com.llw.mvvm.utils.MVUtils;
-import com.llw.mvvm.utils.MVUtilsEntryPoint;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
-import dagger.hilt.android.EntryPointAccessors;
 import io.reactivex.Completable;
 import io.reactivex.Flowable;
-
-import static com.llw.mvvm.BaseApplication.getContext;
 
 /**
  * 对视频数据进行处理
@@ -41,14 +37,15 @@ public class VideoRepository {
     final MutableLiveData<VideoResponse> video = new MutableLiveData<>();
 
     public final MutableLiveData<String> failed = new MutableLiveData<>();
-    private final MVUtils mvUtils;
+    @Inject
+ MVUtils mvUtils;
 
     @Inject
     VideoRepository(){
         //获取mvUtils
-        MVUtilsEntryPoint entryPoint =
-                EntryPointAccessors.fromApplication(getContext(), MVUtilsEntryPoint.class);
-        mvUtils = entryPoint.getMVUtils();
+//        MVUtilsEntryPoint entryPoint =
+//                EntryPointAccessors.fromApplication(getContext(), MVUtilsEntryPoint.class);
+//        mvUtils = entryPoint.getMVUtils();
     }
 
     /**

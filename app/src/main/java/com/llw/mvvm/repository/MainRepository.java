@@ -14,17 +14,13 @@ import com.llw.mvvm.network.BaseObserver;
 import com.llw.mvvm.network.NetworkApi;
 import com.llw.mvvm.network.utils.DateUtil;
 import com.llw.mvvm.utils.MVUtils;
-import com.llw.mvvm.utils.MVUtilsEntryPoint;
 
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 
-import dagger.hilt.android.EntryPointAccessors;
 import io.reactivex.Completable;
 import io.reactivex.Flowable;
-
-import static com.llw.mvvm.BaseApplication.getContext;
 
 /**
  * Main存储库 用于对数据进行处理
@@ -46,14 +42,15 @@ public class MainRepository {
 
     public final MutableLiveData<String> failed = new MutableLiveData<>();
 
-    private final MVUtils mvUtils;
+    @Inject
+     MVUtils mvUtils;
 
     @Inject
     public MainRepository() {
         //获取mvUtils
-        MVUtilsEntryPoint entryPoint =
-                EntryPointAccessors.fromApplication(getContext(), MVUtilsEntryPoint.class);
-        mvUtils = entryPoint.getMVUtils();
+//        MVUtilsEntryPoint entryPoint =
+//                EntryPointAccessors.fromApplication(getContext(), MVUtilsEntryPoint.class);
+//        mvUtils = entryPoint.getMVUtils();
     }
 
     public MutableLiveData<BiYingResponse> getBiYing() {
@@ -80,11 +77,11 @@ public class MainRepository {
     public MutableLiveData<WallPaperResponse> getWallPaper() {
         //今日此接口是否已经请求
         if (mvUtils.getBoolean(Constant.IS_TODAY_REQUEST_WALLPAPER)) {
-//            if (DateUtil.getTimestamp() <= mvUtils.getLong(Constant.REQUEST_TIMESTAMP_WALLPAPER)) {
-//                getLocalDBForWallPaper();
-//            } else {
+            if (DateUtil.getTimestamp() <= mvUtils.getLong(Constant.REQUEST_TIMESTAMP_WALLPAPER)) {
+                getLocalDBForWallPaper();
+            } else {
                 requestNetworkApiForWallPaper();
-//            }
+            }
         } else {
             requestNetworkApiForWallPaper();
         }
